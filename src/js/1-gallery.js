@@ -1,3 +1,6 @@
+import SimpleLightbox from 'simplelightbox';
+import 'simplelightbox/dist/simple-lightbox.min.css';
+
 const images = [
   {
     preview:
@@ -65,20 +68,6 @@ const images = [
 ];
 
 const gallery = document.querySelector('.gallery');
-gallery.addEventListener('click', handleModalOpen);
-
-function handleModalOpen(event) {
-  event.preventDefault();
-
-  if (event.target.classList.contains('gallery-image')) {
-    const instance = basicLightbox.create(`
-    <div class="modal">
-    <img src="${event.target.dataset.source}" >
-    </div>
-    `);
-    instance.show();
-  }
-}
 
 const galleryStringHtml = images
   .map(
@@ -97,3 +86,8 @@ const galleryStringHtml = images
   .join('');
 
 gallery.insertAdjacentHTML('beforeend', galleryStringHtml);
+
+const lightbox = new SimpleLightbox('.gallery-link', {
+  captionsData: 'alt',
+  captionDelay: 250,
+});
